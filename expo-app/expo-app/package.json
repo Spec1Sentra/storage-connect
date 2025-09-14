@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-navigation/bottom-tabs": "^7.4.7",
+    "@react-navigation/native": "^7.1.17",
+    "@react-navigation/native-stack": "^7.3.26",
+    "@supabase/supabase-js": "^2.57.4",
+    "@tanstack/react-query": "^5.87.4",
+    "axios": "^1.12.2",
+    "expo-file-system": "^19.0.14",
+    "expo-image-manipulator": "^14.0.7",
+    "expo-image-picker": "^17.0.8",
+    "expo-location": "^19.0.7",
+    "expo-notifications": "^0.32.11",
+    "react-native-dotenv": "^3.4.11",
+    "react-native-gifted-chat": "^2.8.1",
+    "react-native-maps": "^1.26.4",
+    "react-native-safe-area-context": "^5.6.1",
+    "react-native-screens": "^4.16.0",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "^13.3.3",
+    "@types/uuid": "^10.0.0"
+  }
+}
