@@ -1,0 +1,29 @@
+-- Supabase initial schema for Storage Connection
+-- This file will be populated in Deliverable 2.
+--
+-- Extensions:
+-- - postgis
+-- - vector (or pgvector)
+--
+-- Tables:
+-- - public.profiles
+-- - public.facilities
+-- - public.units
+-- - public.items
+-- - public.images
+-- - public.tags
+-- - public.item_tags
+-- - public.item_embeddings
+-- - public.claims
+-- - public.conversations
+-- - public.messages
+-- - public.reports
+-- - public.saved_searches
+-- - public.notifications
+-- - public.push_tokens
+--
+-- Views:
+-- - public.items_public
+-- - public.profiles_public
+--
+-- RLS Policies for all tables.
