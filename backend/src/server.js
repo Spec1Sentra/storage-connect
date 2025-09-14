@@ -4,18 +4,13 @@ const passport = require('passport');
 require('dotenv').config({ path: __dirname + '/./../.env' });
 
 
-// require models
-require('./models/User');
-require('./models/Chore');
-require('./models/Swap');
-require('./models/Community');
-
 // require passport setup
 require('./config/passport-setup');
 
 // require routes
 const authRoutes = require('./api/auth');
 const choreRoutes = require('./api/chores');
+const userRoutes = require('./api/users');
 
 const app = express();
 
@@ -28,7 +23,7 @@ app.use(passport.initialize());
 // set up routes
 app.use('/api/auth', authRoutes);
 app.use('/api/chores', choreRoutes);
-app.use('/api/users', require('./api/users'));
+app.use('/api/users', userRoutes);
 
 // connect to mongodb
 mongoose.connect(process.env.MONGO_URI, {

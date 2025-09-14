@@ -32,4 +32,4 @@ const communitySchema = new Schema({
     }
 });
 
-mongoose.model('Community', communitySchema);
+module.exports = mongoose.model('Community', communitySchema);

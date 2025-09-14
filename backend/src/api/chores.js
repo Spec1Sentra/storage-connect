@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const auth = require('../middleware/auth');
 
-const Chore = mongoose.model('Chore');
+const Chore = require('../models/Chore');
+const User = require('../models/User');
+const Swap = require('../models/Swap');
 const router = express.Router();
 
 // Use auth middleware for all chore routes
@@ -139,9 +141,6 @@ router.post('/:id/complete', async (req, res) => {
         res.status(500).send({ error: 'Server error' });
     }
 });
-
-const User = mongoose.model('User');
-const Swap = mongoose.model('Swap');
 
 // @route   POST /api/chores/:id/verify
 // @desc    Verify a completed chore, transfer credits, and award XP

@@ -37,4 +37,4 @@ const swapSchema = new Schema({
     }
 });
 
-mongoose.model('Swap', swapSchema);
+module.exports = mongoose.model('Swap', swapSchema);

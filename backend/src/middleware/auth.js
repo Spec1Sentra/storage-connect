@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 require('dotenv').config({ path: __dirname + '/./../../../.env' });
 
-const User = mongoose.model('User');
+const User = require('../models/User');
 
 module.exports = async (req, res, next) => {
     const { authorization } = req.headers;

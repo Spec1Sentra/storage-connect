@@ -55,4 +55,4 @@ choreSchema.pre('save', function(next) {
     next();
 });
 
-mongoose.model('Chore', choreSchema);
+module.exports = mongoose.model('Chore', choreSchema);

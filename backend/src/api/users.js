@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const auth = require('../middleware/auth');
 
-const User = mongoose.model('User');
+const User = require('../models/User');
 const router = express.Router();
 
 // @route   GET /api/users/me
@@ -37,6 +37,34 @@ router.get('/:id', auth, async (req, res) => {
         if (err.kind == 'ObjectId') {
             return res.status(404).json({ msg: 'User not found' });
         }
+        res.status(500).send('Server Error');
+    }
+});
+
+const Chore = require('../models/Chore');
+
+// @route   GET /api/users/me/posted-chores
+// @desc    Get all chores posted by the current user
+// @access  Private
+router.get('/me/posted-chores', auth, async (req, res) => {
+    try {
+        const chores = await Chore.find({ createdBy: req.user.id }).sort({ createdAt: -1 });
+        res.json(chores);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   GET /api/users/me/claimed-chores
+// @desc    Get all chores claimed by the current user
+// @access  Private
+router.get('/me/claimed-chores', auth, async (req, res) => {
+    try {
+        const chores = await Chore.find({ completedBy: req.user.id }).sort({ 'updatedAt': -1 });
+        res.json(chores);
+    } catch (err) {
+        console.error(err.message);
         res.status(500).send('Server Error');
     }
 });

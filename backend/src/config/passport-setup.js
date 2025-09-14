@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config({ path: __dirname + '/./../../.env' });
 
 
-const User = mongoose.model('User');
+const User = require('../models/User');
 
 passport.use(
     new GoogleStrategy({
@@ -33,14 +33,3 @@ passport.use(
         }
     )
 );
-
-// We are using JWTs, so we don't need to serialize/deserialize the user into a session
-// passport.serializeUser((user, done) => {
-//     done(null, user.id);
-// });
-
-// passport.deserializeUser((id, done) => {
-//     User.findById(id).then((user) => {
-//         done(null, user);
-//     });
-// });

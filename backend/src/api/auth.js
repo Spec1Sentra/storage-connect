@@ -36,4 +36,53 @@ router.get('/login/failed', (req, res) => {
     });
 });
 
+const { OAuth2Client } = require('google-auth-library');
+const User = require('../models/User');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+// @route   POST /api/auth/google/token
+// @desc    Authenticate user with Google ID token from mobile app
+// @access  Public
+router.post('/google/token', async (req, res) => {
+    const { idToken } = req.body;
+
+    if (!idToken) {
+        return res.status(400).json({ message: 'ID token is required.' });
+    }
+
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+        const { name, email, picture, sub: googleId } = ticket.getPayload();
+
+        let user = await User.findOne({ googleId });
+
+        if (!user) {
+            user = new User({
+                googleId,
+                displayName: name,
+                email,
+                profilePictureUrl: picture,
+            });
+            await user.save();
+        }
+
+        const payload = {
+            id: user.id,
+            displayName: user.displayName,
+        };
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '1d' });
+
+        res.status(200).json({ token, user });
+
+    } catch (error) {
+        console.error('Google token verification failed:', error);
+        res.status(401).json({ message: 'Invalid Google token.' });
+    }
+});
+
+
 module.exports = router;
