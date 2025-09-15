@@ -1,8 +1,39 @@
-1) Open Jules / Google IDX, create a new Expo project and replace files with the code from this repo.
-2) In Firebase console: create a new project. Enable Authentication (Google & Email), Firestore (start in test mode then add rules), and Storage.
-3) Add Firebase config into `firebaseConfig.js`.
-4) Deploy optional Cloud Functions (see `functions/index.js`) for Stripe payments. Set STRIPE_SECRET in functions env.
-5) In Jules, run `npm install` then `npm start`.
-6) For mobile: use Expo Go or build with EAS for App Store / Play Store.
+# Storage Connection
 
-This repo is set up for mobile-first UX and optimized for swiping interactions and offline-friendly Firestore sync.
+This repository contains the source code for the Storage Connection application.
+
+## Structure
+
+- `/expo-app`: The React Native mobile application.
+- `/supabase`: Supabase backend configuration, including migrations and functions.
+- `/website`: The static marketing website.
+- `/.github/workflows`: GitHub Actions for CI/CD.
+
+## Getting Started
+
+To run the mobile application locally, follow these steps:
+
+1.  **Navigate to the app directory:**
+    ```bash
+    cd expo-app
+    ```
+
+2.  **Install dependencies:**
+    This project uses npm.
+    ```bash
+    npm install
+    ```
+    *Note: In some environments, `devDependencies` may not install correctly. If you encounter issues running scripts like `tsc` or `jest`, you may need to troubleshoot the npm installation.*
+
+3.  **Run the application:**
+    You can run the app on Android, iOS, or web.
+    ```bash
+    # To run on Android
+    npm run android
+
+    # To run on iOS
+    npm run ios
+
+    # To run in the web browser
+    npm run web
+    ```
