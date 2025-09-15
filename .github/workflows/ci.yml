@@ -1,1 +1,54 @@
-# Placeholder for CI workflow
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint-and-typecheck:
+    name: "Lint and Type-check"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'expo-app/package-lock.json'
+
+      - name: Install dependencies
+        run: cd expo-app && npm ci
+
+      - name: Run ESLint
+        run: cd expo-app && npm run lint
+
+      - name: Run TypeScript Check
+        run: cd expo-app && npm run typecheck
+
+  test-db-schema:
+    name: "Test DB Schema"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for RLS enabled on critical tables
+        run: |
+          set -e
+          MIGRATION_FILE="supabase/migrations/001_init.sql"
+          CRITICAL_TABLES="profiles items images messages conversations claims push_tokens saved_searches notifications facilities units reports item_embeddings item_tags"
+
+          for table in $CRITICAL_TABLES; do
+            echo "Checking for RLS on table: public.$table"
+            if ! grep -q "alter table public.${table} enable row level security;" "$MIGRATION_FILE"; then
+              echo "::error file=${MIGRATION_FILE}::RLS is not enabled for table public.${table}"
+              exit 1
+            fi
+          done
+
+          echo "RLS check passed for all critical tables."
