@@ -10,6 +10,7 @@ import Onboarding from './src/screens/Onboarding';
 import CircleScreen from './src/screens/CircleScreen';
 import ChoreCreate from './src/screens/ChoreCreate';
 import ProfileScreen from './src/screens/ProfileScreen';
+import StorageConnectHomePage from './src/screens/StorageConnectHomePage';
 
 LogBox.ignoreAllLogs(true);
 
@@ -62,6 +63,7 @@ export default function App(){
               <Stack.Screen name="Onboarding" component={Onboarding} />
             ) : (
               <>
+                <Stack.Screen name="StorageConnectHome" component={StorageConnectHomePage} />
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Circle" component={CircleScreen} />
                 <Stack.Screen name="Create" component={ChoreCreate} />
